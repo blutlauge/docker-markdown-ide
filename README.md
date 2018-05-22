@@ -20,4 +20,4 @@ docker run -d -p 22:22 -p 60001:60001/udp --name md-ide  marcps/markdown-ide:lat
 ## Connect
 
  - Using mosh: mosh <doc@server>; Password: screencast
- - Using ssh: ssh <doc@server> Password: screencast
+ - Using ssh: ssh <doc@server>; Password: screencast
