@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install -y \
     fontconfig \
     fonts-powerline \
     git \
-    haskell-platform \
     locales \
     locales-all \
     mosh \
@@ -33,8 +32,6 @@ RUN apt-get update && apt-get install -y \
     vim-nox \
     zsh \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
-# Intallation of pandoc-crossrefs fails at the moment
-#RUN cabal update && cabal install pandoc-crossref
 
 # Locale
 ENV LANG de_DE.UTF-8
@@ -42,6 +39,7 @@ ENV LANGUAGE de_DE:de
 ENV LC_ALL de_DE.UTF-8
 
 # User
+RUN echo 'root:screencast' | chpasswd
 RUN useradd -ms /usr/bin/zsh doc
 RUN echo 'doc:screencast' | chpasswd
 
@@ -57,13 +55,12 @@ RUN /home/doc/.vim/bundle/YouCompleteMe/install.py --clang-completer
 
 USER root
 
-# SSH config
+# Fix the bug https://bugs.launchpad.net/ubuntu/+source/openssh/+bug/45234
 RUN mkdir /var/run/sshd
-RUN echo 'root:screencast' | chpasswd
-RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 # SSH login fix. Otherwise user is kicked off after login
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
 EXPOSE 22/tcp 60001/udp
 CMD ["/usr/sbin/sshd", "-D"]
+
