@@ -39,7 +39,6 @@ ENV LANGUAGE de_DE:de
 ENV LC_ALL de_DE.UTF-8
 
 # User
-RUN echo 'root:screencast' | chpasswd
 RUN useradd -ms /usr/bin/zsh doc
 RUN echo 'doc:screencast' | chpasswd
 
