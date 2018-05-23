@@ -11,11 +11,8 @@ This IDE is intended for use on a NAS system. It provides
 - My dotfiles which ca be found at [GitHub](https://github.com/marcschlienger/dotfiles.git).
 - And other mandatory stuff.
 
-## Build
-As usual.
-
 ## Run
-docker run -d -p 22:22 -p 60001:60001/udp --name md-ide  marcps/markdown-ide:latest
+docker run -d -p 22:22 -p 60001:60001/udp --name md-ide  -v <source>:<target> marcps/markdown-ide:latest
 
 ## Connect
 
