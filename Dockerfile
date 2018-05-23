@@ -51,8 +51,8 @@ RUN /home/doc/dotfiles/symlink.sh
 RUN git clone https://github.com/VundleVim/Vundle.vim.git /home/doc/.vim/bundle/Vundle.vim
 RUN vim +PluginInstall +qall
 RUN /home/doc/.vim/bundle/YouCompleteMe/install.py --clang-completer
-RUN git clone https://github.com/denysdovhan/spaceship-prompt.git "/home/dev/.zsh/themes/spaceship-prompt" \
-    && ln -s "/home/dev/.zsh/themes/spaceship-prompt/spaceship.zsh-theme" "/home/dev/.zsh/themes/spaceship.zsh-theme"
+RUN git clone https://github.com/denysdovhan/spaceship-prompt.git "/home/doc/.zsh/themes/spaceship-prompt" \
+    && ln -s "/home/dev/.zsh/themes/spaceship-prompt/spaceship.zsh-theme" "/home/doc/.zsh/themes/spaceship.zsh-theme"
 
 USER root
 
