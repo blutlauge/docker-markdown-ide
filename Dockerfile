@@ -46,11 +46,11 @@ USER doc
 
 # Zsh, vim and tmux
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" \
-    && git clone https://github.com/marcschlienger/dotfiles.git /home/dev/dotfiles \
-    && /home/dev/dotfiles/symlink.sh \
-    && git clone https://github.com/VundleVim/Vundle.vim.git /home/dev/.vim/bundle/Vundle.vim \
+    && git clone https://github.com/marcschlienger/dotfiles.git /home/doc/dotfiles \
+    && /home/doc/dotfiles/symlink.sh \
+    && git clone https://github.com/VundleVim/Vundle.vim.git /home/doc/.vim/bundle/Vundle.vim \
     && vim +PluginInstall +qall \
-    && /home/dev/.vim/bundle/YouCompleteMe/install.py --clang-completer
+    && /home/doc/.vim/bundle/YouCompleteMe/install.py --clang-completer
 
 USER root
 
