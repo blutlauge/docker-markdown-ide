@@ -45,16 +45,22 @@ RUN echo 'doc:screencast' | chpasswd
 USER doc
 
 # Zsh, vim and tmux
-RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-RUN git clone https://github.com/marcschlienger/dotfiles.git /home/doc/dotfiles
-RUN /home/doc/dotfiles/symlink.sh
-RUN git clone https://github.com/VundleVim/Vundle.vim.git /home/doc/.vim/bundle/Vundle.vim
-RUN vim +PluginInstall +qall
-RUN /home/doc/.vim/bundle/YouCompleteMe/install.py --clang-completer
-RUN git clone https://github.com/denysdovhan/spaceship-prompt.git "/home/doc/.zsh/themes/spaceship-prompt" \
-    && ln -s "/home/dev/.zsh/themes/spaceship-prompt/spaceship.zsh-theme" "/home/doc/.zsh/themes/spaceship.zsh-theme"
+RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" \
+    && git clone https://github.com/marcschlienger/dotfiles.git /home/dev/dotfiles \
+    && /home/dev/dotfiles/symlink.sh \
+    && git clone https://github.com/VundleVim/Vundle.vim.git /home/dev/.vim/bundle/Vundle.vim \
+    && vim +PluginInstall +qall \
+    && /home/dev/.vim/bundle/YouCompleteMe/install.py --clang-completer
 
 USER root
+
+# Tini
+RUN apt-get install -y curl grep sed dpkg && \
+    TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o "/v.*\"" | sed 's:^..\(.*\).$:\1:'` && \
+    curl -L "https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini_${TINI_VERSION}.deb" > tini.deb && \
+    dpkg -i tini.deb && \
+    rm tini.deb && \
+    apt-get clean
 
 # Fix the bug https://bugs.launchpad.net/ubuntu/+source/openssh/+bug/45234
 RUN mkdir /var/run/sshd
@@ -63,5 +69,6 @@ RUN mkdir /var/run/sshd
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
 EXPOSE 22/tcp 60001/udp
+ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD ["/usr/sbin/sshd", "-D"]
 
