@@ -12,7 +12,7 @@ This IDE is intended for use on a NAS system. It provides
 - And other mandatory stuff.
 
 ## Run
-docker run -d -p 22:22 -p 60001:60001/udp --name \<container name\> -v \<source\>:\<target\> marcps/markdown-ide:latest
+docker run -d -p 22:22 -p 60001:60001/udp --name \<container name\> -v \<source\>:\<target\> marcps/docker-markdown-ide:latest
 
 ## Connect
 
