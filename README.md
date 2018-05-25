@@ -1,11 +1,11 @@
-# Docker container including a markdown IDE
+# Docker image providing a markdown IDE
 
 This IDE is intended for use on a NAS system. It provides
 
 - pandoc.
 - TeX Live.
 - vim with appropriate plugins including but not limited to vim-markdown, vim-latex and YouCompleteMe.
-- Zsh with the oh-my-zsh framwork.
+- Zsh with the oh-my-zsh framework.
 - tmux.
 - An SSH server and a MOSH server to be able to use this container from an iPad using the Blink shell.
 - My dotfiles which ca be found at [GitHub](https://github.com/marcschlienger/dotfiles.git).
